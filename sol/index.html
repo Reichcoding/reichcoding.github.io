@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Солевые Наркоманы</title>
+	<link rel="shortcut icon" href="src/fav.ico" type="image/x-icon">
+	<script type="text/javascript" src="https://vk.com/js/api/openapi.js?161"></script>
+	<script type="text/javascript">VK.init({apiId: 7239062, onlyWidgets: true});</script>
+
+
+	<style type="text/css">
+		body{text-align: center;color:#ffd700;
+			background:url("src/fon.png"),linear-gradient(to bottom right,red,orange,yellow,green,skyblue,blue,purple);background-attachment: fixed;background-repeat:repeat;  }
+		#canvas{border:2px solid blue;}
+		#name{text-shadow:  2px 0 2px #fff, 
+										    0 2px 2px #00f, 
+											-2px 0 2px #00f, 
+											0 -2px 2px #00f;}
+											
+		#butn{padding:90px;font-size:50px;border:2px solid blue;}
+		#vk_comments{margin: 0 auto;}
+		#geg{margin-bottom: -15px;}
+	</style>
+</head>
+<body>
+	<h1 id="name">Солевые Наркоманы</h1>
+	<h3 id="name2">Управление: WASD и E или кнопки внизу</h3>
+	<canvas id="canvas" width="720px" height="720px">лол на браузере твоем не парит игра попробуй гденить в другом</canvas>
+	<br>
+	<button id="butn" onclick="goup()">↑</button><br>
+	<button id="butn" onclick="goleft()">←</button>
+	<button id="butn" onclick="godown()">↓</button>
+	<button id="butn" onclick="goright()">→</button>
+	<br><br>
+	<button id="butn" onclick="int()"><img src="src/fav.ico"/>Вколоть<img src="src/fav.ico"/></button>
+	<br><br>
+	<div id="vk_comments" ></div>
+	<script type="text/javascript">VK.Widgets.Comments("vk_comments", {limit: 10,width:720, attach: "*"});</script>
+	<h6 id="name2">Разработка студии говно 2019 лучшая игра 2009 года</h6>
+	<h5 id="name2"><a href="https://vk.com/club183776977">vk.com/club183776977</a></h5>
+	<img src="src/top.png" id="geg"/>
+	<script type="text/javascript">
+		function rand(min, max) {
+ 			return Math.floor(Math.random() * (max - min)) + min;
+		}
+		var canv  	= document.getElementById('canvas');
+		var ctx   	= canv.getContext("2d");
+		var x     	= rand(0,720-80);
+		var y     	= rand(50,720-107);
+		var rx      = rand(0,720-150);
+		var	ry      = rand(50,720-175);
+		var pakx     = rand(0,720-128);
+		var	paky     = rand(50,720-103);
+		var jprices = 0;
+		var count   = 3;
+		var anim    = 0;
+		var using   = false;
+		var pak     = new Image();
+		var jpric 	= new Image();
+		var ruka  	= new Image();
+		var bg    	= new Image();
+		pak.src     = "src/pak.png";
+		jpric.src 	= "src/jpric.png";
+		ruka.src  	= "src/ruka.png";
+		bg.src    	= "src/padik.png";
+		bg.onload   = function(){
+			ctx.drawImage(bg,0,0);
+			ctx.drawImage(pak,pakx,paky);
+			ctx.drawImage(ruka,rx,ry);
+			ctx.drawImage(jpric,x,y);
+			draw()
+		}
+		function draw(){
+			if(x<=0){x=1;}else{}
+			if(x>=720-80){x=719-80;}else{}
+			if(y<=0){y=1;}else{}
+			if(y>=720-107){y=719-107;}else{}
+			ctx.drawImage(bg,0,0);
+			ctx.drawImage(pak,pakx,paky);
+			ctx.drawImage(ruka,rx,ry);
+			ctx.drawImage(jpric,x,y);
+			ctx.font="20px arial";
+			ctx.fillStyle="red";
+			ctx.fillText("Вколото шприцов : "+jprices,10,30);
+			ctx.fillText("Всего шприцов : "+count,10,60);
+			requestAnimationFrame(draw);
+		}
+		function goup(){
+			anim = 0;
+			if(using==false){var k = setInterval(function(){if(anim>=4){clearInterval(k);}y-=12;anim++},1000/50)}
+			else{}
+			
+		}
+		function goleft(){
+			anim = 0;
+			if(using==false){var k = setInterval(function(){if(anim>=4){clearInterval(k);}x-=12;anim++},1000/50)}
+			else{}
+		}
+		function godown(){
+			anim = 0;
+			if(using==false){var k = setInterval(function(){if(anim>=4){clearInterval(k);}y+=12;anim++},1000/50)}
+			else{}
+		}
+		function goright(){
+			anim = 0;
+			if(using==false){var k = setInterval(function(){if(anim>=4){clearInterval(k);}x+=12;anim++},1000/50)}
+			else{}
+		}
+		function int(){
+			if(using==false){
+				using   = true;
+				jpric.src="src/jpricuse.png";
+				setTimeout(function(){
+					jpric.src="src/jpric.png";
+					using   = false;
+					if(x+80>pakx&&x<pakx+128&&y+107>paky&&y<paky+103){
+						count+=3;
+						pakx = rand(0,720-128);
+						paky = rand(50,720-103);
+					}
+					else if(x+80>rx&&x<rx+150&&y+107>ry&&y<ry+175){
+						if(count>0){
+							jprices++
+							count--
+							rx = rand(0,720-150);
+							ry = rand(50,720-175);
+							if(jprices==10){
+								bg.src  = "src/rainbow1.png";
+							}else if(jprices==25){
+								bg.src  = "src/rainbow2.png";
+							}else if(jprices==50){
+								bg.src  = "src/rainbow3.png";
+							}else if(jprices==75){
+								bg.src  = "src/grib1.png";
+							}
+							else if(jprices==100){
+								bg.src  = "src/grib2.png";
+							}
+							else if(jprices==150){
+								bg.src  = "src/grib3.png";
+							}
+							else if(jprices==200){
+								alert("помер мужык...");
+								bg.src  = "src/rai.png";
+							}
+							if(jprices==5){
+								ruka.src  = "src/ruka2.png";
+							}else if(jprices==20){
+								ruka.src  = "src/ruka3.png";
+							}else if(jprices==40){
+								ruka.src  = "src/ruka4.png";
+							}else if(jprices==60){
+								ruka.src  = "src/ruka5.png";
+							}
+						}
+					}else{}
+				},1000);
+			}else{}
+
+		}
+		addEventListener("keydown", function(event) {
+    		switch(event.keyCode){
+			    case 87:goup();break;
+			    case 83:godown();break;
+			    case 65:goleft();break;
+			    case 68:goright();break;
+				case 69:int();break;
+			}
+    		});
+
+	</script>
+</body>
+</html>
