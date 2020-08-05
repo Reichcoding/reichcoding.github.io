@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ray</title>
+	<style type="text/css">
+		* { margin:0; padding:0; } 
+		html, body { width:100%; height:100%; }
+		canvas { display:block; }
+	</style>
+</head>
+<body>
+	<canvas id="canv" width="1200" height="720"></canvas>
+	<script type="text/javascript">
+		var canv = document.getElementById("canv");
+		var ctx  = canv.getContext("2d");
+		const winW=window.innerWidth;
+		const winH=window.innerHeight;
+		canv.width = winW;
+		canv.height= winH;
+		var tileSize = 72;
+		var flat = new Image();
+		var ruka = new Image();
+		var shoot= new Image();
+		//var sprite = new Image();
+		var tiles = new Image();
+		//sprite.src = "sprite.png";
+		tiles.src = "tiles.png";
+		shoot.src="shot.png";
+		flat.src ="flat.png";
+		ruka.src ="ruka.png";
+		String.prototype.replaceAt = function(index, replacement) {
+  			return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+		}
+		ctx.font = '15px Arial black'
+		ctx.strokeStyle="black"
+		ruka.onload = function(){
+			var game = setInterval(function(){
+				ctx.fillStyle="#88A2AD";
+				ctx.fillRect(0,0,winW,winH/2);
+				ctx.drawImage(flat,0,winH/2,winW,winH);
+				updatePlayer();
+				cast();
+				ctx.strokeText("DONBASS 3D при лагах уменьшить размер окна",0,20)
+				if(player.shoot){ctx.drawImage(shoot,winW-720,winH-480)}else{ctx.drawImage(ruka,winW-720,winH-480)};
+			},1000/30);
+		};
+		function cast(){
+			for(var d=0;d<winW;d++){
+				var angle = player.a-player.fov/2+player.fov*d/winW;
+				for(var c=0;c<1700;c++){
+					var cx = (player.x+c*Math.cos(angle))/tileSize;
+					var cy = (player.y+c*Math.sin(angle))/tileSize;
+					var lookAt=map[Math.floor(cy)][Math.floor(cx)];
+					if(lookAt != "0"){
+						var column_height=(winH/(c*Math.cos(angle-player.a)))*winW/(winH/50)
+						var col0Y = winH/2-column_height/2
+						var hitx = cx-Math.floor(cx+.5);
+						var hity = cy-Math.floor(cy+.5);
+						var xTex = hitx*tSize;
+						if(Math.abs(hity)>Math.abs(hitx)){xTex=hity*tSize};
+						if(xTex<0){xTex+=tSize};
+						ctx.drawImage(tiles,tSize*lookAt+xTex,1,1,tSize,d,col0Y,1,column_height);
+						ctx.fillStyle = "rgba(0,0,0,"+1*c/2000+")"
+						ctx.fillRect(d,col0Y,1,column_height)
+						break;
+					};
+				};
+			};
+		};
+		//1-темные кирпичи 2-сталь 3-бетонный забор 4-белые кирпичи 5-россия 6-татарстан 7-эчпочмак
+		var map =  ["222222222222222",
+					"100000000000001",
+					"200000000000002",
+					"300000000000003",
+					"400000000000004",
+					"100000000000001",
+					"200000000000002",
+					"300000000000003",
+					"400056700000004",
+					"222222222222222"];
+		var tSize = 256;
+		//var mutant = {
+			//x:75*4,y:75*4
+		//}
+		var player = {
+			x:75*3,
+			y:75*3,
+			a:0,
+			speed:6,
+			rotSpeed:0.03 ,
+			fov:Math.PI/3.,
+			moveF:false,
+			moveL:false,
+			moveR:false,
+			moveB:false,
+			moveCamR:false,
+			moveCamL:false,
+			shoot:false
+		};
+		function shut(){
+			//for(var c=0;c<1700;c++){
+			//	var cx = player.x+c*Math.cos(player.a);
+			//	var cy = player.y+c*Math.sin(player.a);
+			//	if(map[Math.floor(cy/tileSize)][Math.floor(cx/tileSize)] != "0"){
+			//		console.log(Math.floor(cy/tileSize),Math.floor(cx/tileSize));
+			//	};
+			//};
+		};
+		function updatePlayer(){
+			if(player.moveF){
+				if(map[Math.floor((player.y+player.speed*Math.sin(player.a))/tileSize)][Math.floor((player.x+player.speed*Math.cos(player.a))/tileSize)] == '0'){
+					player.x = player.x+player.speed*Math.cos(player.a);
+					player.y = player.y+player.speed*Math.sin(player.a);
+				};
+				
+			};
+			if(player.moveL){
+				if(map[Math.floor((player.y+player.speed*Math.sin(player.a-1.57))/tileSize)][Math.floor((player.x+player.speed*Math.cos(player.a-1.57))/tileSize)] == '0'){
+					player.x = player.x+player.speed*Math.cos(player.a-1.57);
+					player.y = player.y+player.speed*Math.sin(player.a-1.57);
+				};
+				
+			};
+			if(player.moveR){
+				if(map[Math.floor((player.y+player.speed*Math.sin(player.a+1.57))/tileSize)][Math.floor((player.x+player.speed*Math.cos(player.a+1.57))/tileSize)] == '0'){
+					player.x = player.x+player.speed*Math.cos(player.a+1.57);
+					player.y = player.y+player.speed*Math.sin(player.a+1.57);
+				};
+				
+			};
+			if(player.moveB){
+				if(map[Math.floor((player.y+player.speed*Math.sin(player.a+1.57+1.57))/tileSize)][Math.floor((player.x+player.speed*Math.cos(player.a+1.57+1.57))/tileSize)] == '0'){
+					player.x = player.x+player.speed*Math.cos(player.a+1.57+1.57);
+					player.y = player.y+player.speed*Math.sin(player.a+1.57+1.57);
+				};
+
+			};
+			if(player.moveCamR){player.a+=player.rotSpeed};
+			if(player.moveCamL){player.a-=player.rotSpeed};
+		}
+		document.addEventListener('keydown',function(e){
+			if(e.code == "ArrowRight"){player.moveCamR=true};
+			if(e.code == "ArrowLeft"){player.moveCamL=true};
+			if(e.code == "KeyW"){player.moveF=true};
+			if(e.code == "KeyS"){player.moveB=true};
+			if(e.code == "KeyA"){player.moveL=true};
+			if(e.code == "KeyD"){player.moveR=true};
+			if(e.code == "Space"){
+				player.shoot=true;
+				shut();
+				setTimeout(function(){player.shoot=false},150);
+			};
+		});
+		document.addEventListener('keyup',function(e){
+			if(e.code == "ArrowRight"){player.moveCamR=false};
+			if(e.code == "ArrowLeft"){player.moveCamL=false};
+			if(e.code == "KeyW"){player.moveF=false};
+			if(e.code == "KeyS"){player.moveB=false};
+			if(e.code == "KeyA"){player.moveL=false};
+			if(e.code == "KeyD"){player.moveR=false};
+		});
+
+	</script>
+</body>
+</html>
