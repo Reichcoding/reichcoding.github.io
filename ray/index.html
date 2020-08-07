@@ -23,13 +23,19 @@
 		var flat = new Image();
 		var ruka = new Image();
 		var shoot= new Image();
-		//var sprite = new Image();
-		var tiles = new Image();
-		//sprite.src = "sprite.png";
-		tiles.src = "tiles.png";
-		shoot.src="shot.png";
-		flat.src ="flat.png";
-		ruka.src ="ruka.png";
+		var tx1= new Image();var tx2= new Image();var tx3= new Image();var tx4= new Image();var tx5= new Image();var tx6= new Image();var tx7= new Image();
+		tx1.src="img/1.jpg";
+		tx2.src="img/2.jpg";
+		tx3.src="img/3.jpg";
+		tx4.src="img/4.jpg";
+		tx5.src="img/5.jpg";
+		tx6.src="img/6.jpg";
+		tx7.src="img/7.jpg";
+
+		var textures = [null,tx1,tx2,tx3,tx4,tx5,tx6,tx7]
+		shoot.src="img/shot.png";
+		flat.src ="img/flat.png";
+		ruka.src ="img/ruka.png";
 		String.prototype.replaceAt = function(index, replacement) {
   			return this.substr(0, index) + replacement + this.substr(index + replacement.length);
 		}
@@ -62,7 +68,7 @@
 						var xTex = hitx*tSize;
 						if(Math.abs(hity)>Math.abs(hitx)){xTex=hity*tSize};
 						if(xTex<0){xTex+=tSize};
-						ctx.drawImage(tiles,tSize*lookAt+xTex,1,1,tSize,d,col0Y,1,column_height);
+						ctx.drawImage(textures[lookAt],xTex,1,1,tSize,d,col0Y,1,column_height);
 						ctx.fillStyle = "rgba(0,0,0,"+1*c/2000+")"
 						ctx.fillRect(d,col0Y,1,column_height)
 						break;
@@ -71,17 +77,17 @@
 			};
 		};
 		//1-темные кирпичи 2-сталь 3-бетонный забор 4-белые кирпичи 5-россия 6-татарстан 7-эчпочмак
-		var map =  ["222222222222222",
-					"100000000000001",
-					"200000000000002",
-					"300000000000003",
-					"400000000000004",
-					"100000000000001",
-					"200500600700002",
-					"300000000000003",
-					"400000000000004",
-					"222222222222222"];
-		var tSize = 256;
+		var map =  ["33333333333333333333",
+					"57000000003000000076",
+					"50000000003000000006",
+					"50000000003000000006",
+					"50000000000000000006",
+					"50000000000000000006",
+					"50000000003000000006",
+					"50000000003000000006",
+					"57000000003000000076",
+					"33333333333333333333"];
+		var tSize = 255;
 		//var mutant = {
 			//x:75*4,y:75*4
 		//}
