@@ -22,28 +22,17 @@ function init() {
 	draw()
 }
 function draw() {
-	var choose = rand(0,4)
-	if(choose == 0){
+	if(rand(0,2) == 0){
 		for (var i = 0; i < 1000; i++)
 		{
 			circle(rand(0,canv.width),rand(0,canv.height),rand(5,100),colors[rand(0,colors.length-1)])
 		}
-	}else if(choose == 1){
+	}else{
 		var size = rand(40,65)
 		for(var i =0;i<canv.width;i+=canv.width/size){
 			for(var j =0;j<canv.height;j+=canv.width/size){
 				block(i,j,canv.width/size,canv.width/size,colors[rand(0,colors.length-1)])
 			}
-		}
-	}else if(choose == 2){
-		var size = rand(40,65)
-		for(var i =0;i<canv.width;i+=canv.width/size){
-			block(i,0,canv.width/size,canv.height,colors[rand(0,colors.length-1)])
-		}
-	}else if(choose == 3){
-		var size = rand(40,65)
-		for(var i =0;i<canv.width;i+=canv.width/size){
-			block(0,i,canv.width,canv.width/size,colors[rand(0,colors.length-1)])
 		}
 	}
 }
