@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body{margin:0;padding:0;background-color:black;text-align: center;}
+	</style>
+</head>
+<body>
+	<img src="scream.jpg" id="screamer">
+	<script type="text/javascript">
+		var scream = document.getElementById('screamer');
+		if(window.innerHeight>window.innerWidth){
+			scream.width = window.innerWidth*0.95;
+		}else{
+			scream.height=window.innerHeight*0.95;
+		}
+	</script>
+</body>
+</html>
