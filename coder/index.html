@@ -20,64 +20,16 @@
 	вывод:<br>
 	<textarea id="output" readonly="true" cols = "55" rows = "12"></textarea><br>
 	<script type="text/javascript">
-		
-		var input = ""; //из кода выйди разбойник
-		var output = "";
-		var scanned_from = 0;
-		var scanned_to = 0;
-
+		var symbols = ["а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я","0","1","2","3","4","5","6","7","8","9"," ",",","."]
+		var eie     = ["ъ","ь","е","ъе","ье","еъ","еь","ъъ","ъь","ьь","ьъ","ее","ъъъ","ььь","еее","ъьъ","ъъь","ъьь","ьъь","ьъъ","ььъ","еъъ","еъь","еьь","еьъ","ееъ","ееь","еее","ееее","еъеъ","еьеь","еъеь","еьеъ","ьььь","ььье","ььее","ьеее","еееъ","ееъъ","еъъъ","ъъъь","ъъьь","ъььь","ъъъъ","eeeee","eeeeь"];
 		function encode(){
-			input = document.getElementById("input").value;
+			input = document.getElementById("input").value.toLowerCase();
 			output = "";
-			for(var i=0;i<input.length;i++){
-				switch (input[i].toLowerCase()) {
-					case "а": output+="ъ "; break;
-					case "б": output+="ь "; break;
-					case "в": output+="е "; break;
-					case "г": output+="ъе "; break;
-					case "д": output+="ье "; break;
-					case "е": output+="еъ "; break;
-					case "ё": output+="еь "; break;
-					case "ж": output+="ъъ "; break;
-					case "з": output+="ъь "; break;
-					case "и": output+="ьь "; break;
-					case "й": output+="ьъ "; break;
-					case "к": output+="ее "; break;
-					case "л": output+="ъъъ "; break;
-					case "м": output+="ььь "; break;
-					case "н": output+="еее "; break;
-					case "о": output+="ъьъ "; break;
-					case "п": output+="ъъь "; break;
-					case "р": output+="ъьь "; break;
-					case "с": output+="ьъь "; break;
-					case "т": output+="ьъъ "; break;
-					case "у": output+="ььъ "; break;
-					case "ф": output+="еъъ "; break;
-					case "х": output+="еъь "; break;
-					case "ц": output+="еьь "; break;
-					case "ч": output+="еьъ "; break;
-					case "ш": output+="ееъ "; break;
-					case "щ": output+="ееь "; break;
-					case "ъ": output+="еее "; break;
-					case "ы": output+="ееее "; break;
-					case "ь": output+="еъеъ "; break;
-					case "э": output+="еьеь "; break;
-					case "ю": output+="еъеь "; break;
-					case "я": output+="еьеъ "; break;
-					case "0": output+="ьььь "; break;
-					case "1": output+="ььье "; break;
-					case "2": output+="ььее "; break;
-					case "3": output+="ьеее "; break;
-					case "4": output+="еееъ "; break;
-					case "5": output+="ееъъ "; break;
-					case "6": output+="еъъъ "; break;
-					case "7": output+="ъъъь "; break;
-					case "8": output+="ъъьь "; break;
-					case "9": output+="ъььь "; break;
-					case " ": output+="ъъъъ "; break;
-					default:
-						output+=input[i] + " ";
-						break;
+			for(var i = 0;i<input.length;i++){
+				if(symbols.indexOf(input[i])>=0){
+					output+=eie[symbols.indexOf(input[i])]+" "
+				}else{
+					output+=input[i]+" ";
 				}
 			}
 			document.getElementById("output").value=output;
@@ -86,70 +38,19 @@
 			input = document.getElementById("input").value;
 			output = "";
 			var splitted = input.split(" ");
-			//splitted.pop(-1);
-			for(var i=0;i<splitted.length;i++){
-				switch (splitted[i]) {
-					case "ъ": output+="а"; break;
-					case "ь": output+="б"; break;
-					case "е": output+="в"; break;
-					case "ъе": output+="г"; break;
-					case "ье": output+="д"; break;
-					case "еъ": output+="е"; break;
-					case "еь": output+="ё"; break;
-					case "ъъ": output+="ж"; break;
-					case "ъь": output+="з"; break;
-					case "ьь": output+="и"; break;
-					case "ьъ": output+="й"; break;
-					case "ее": output+="к"; break;
-					case "ъъъ": output+="л"; break;
-					case "ььь": output+="м"; break;
-					case "еее": output+="н"; break;
-					case "ъьъ": output+="о"; break;
-					case "ъъь": output+="п"; break;
-					case "ъьь": output+="р"; break;
-					case "ьъь": output+="с"; break;
-					case "ьъъ": output+="т"; break;
-					case "ььъ": output+="у"; break;
-					case "еъъ": output+="ф"; break;
-					case "еъь": output+="х"; break;
-					case "еьь": output+="ц"; break;
-					case "еьъ": output+="ч"; break;
-					case "ееъ": output+="ш"; break;
-					case "ееь": output+="щ"; break;
-					case "еее": output+="ъ"; break;
-					case "ееее": output+="ы"; break;
-					case "еъеъ": output+="ь"; break;
-					case "еьеь": output+="э"; break;
-					case "еъеь": output+="ю"; break;
-					case "еьеъ": output+="я"; break;
-					case "ьььь": output+="0"; break;
-					case "ььье": output+="1"; break;
-					case "ььее": output+="2"; break;
-					case "ьеее": output+="3"; break;
-					case "еееъ": output+="4"; break;
-					case "ееъъ": output+="5"; break;
-					case "еъъъ": output+="6"; break;
-					case "ъъъь": output+="7"; break;
-					case "ъъьь": output+="8"; break;
-					case "ъььь": output+="9"; break;
-					case " ": output+="ъъъъ "; break;
-					case "ъъъъ": output+=" "; break;
-					default:
-						output+=input[i];
-						break;
+			for(var i = 0;i<splitted.length;i++){
+				if(eie.indexOf(splitted[i])>=0){
+					output+=symbols[eie.indexOf(splitted[i])]
+				}else{
+					output+=splitted[i]
 				}
+			}
 			document.getElementById("output").value=output;
 		}
-	}
-	</script>
-	<br>
-	Работает только на русских буквах и цифрах, любые знаки кроме них не будут шифроваться
-	<br>
-	<br>
-	<br>
-	<br>
+	</script><br>
+	Работает только на русских буквах и цифрах, любые знаки кроме них не будут шифроваться<br><br><br><br>
 	разработка человеческой беседы 2019-2020<br>
-	автор <a href="https://vk.com/bosska4alo4ki">bosska4alo4ki</a>
+	автор <a href="https://vk.com/iijjjiijj">bosska4alo4ki</a>
 
 </body>
 </html>
