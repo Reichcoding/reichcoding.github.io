@@ -43,6 +43,7 @@
 		ctx.textAlign="center"
 		ruka.onload = function(){
 			var game = setInterval(function(){
+				const t0 = performance.now();
 				ctx.fillStyle="#88A2AD";
 				ctx.fillRect(0,0,winW,winH/2);
 				ctx.drawImage(flat,0,winH/2,winW,winH);
@@ -51,7 +52,9 @@
 				ctx.fillStyle="black"
 				ctx.fillText("Donbass 3d",winW/2,30)
 				if(player.shoot){ctx.drawImage(shoot,winW-winH/2,winH-winH/2,winH/2,winH/2)}else{ctx.drawImage(ruka,winW-winH/2,winH-winH/2,winH/2,winH/2)};
-			},1000/30);
+				const t1 = performance.now();
+				ctx.fillText(Math.floor(1/((t1-t0)/1000)),winW-30,30)
+			},1000/60);
 		};
 		function cast(){
 			for(var d=0;d<winW;d++){
