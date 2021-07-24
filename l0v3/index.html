@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Otkritka)</title>
+	<style type="text/css">
+		@font-face {
+			font-family: 'Zhizn'; 
+			src: url('Zhizn.otf'); 
+		}
+		@font-face {
+			font-family: 'logotype'; 
+			src: url('Godzilla Regular.ttf'); 
+		}
+		body{text-align: center;background-color:#222222;}
+		#logo{
+			font-family: 'logotype';
+			font-size: 2em;
+			text-transform: uppercase;
+		}
+		#write{
+			text-align: left;
+			max-width: 25%;
+		}
+		#paper{
+			font-family:'Zhizn'; 
+			color:white;
+			padding: 25px;
+			margin:0 auto;
+			max-width: 25%;
+			border: 3px solid #E32636;
+		}
+		#paper.active{
+			animation: flip 2s linear;
+		}
+		#hidden{
+			color:#666;
+			position: absolute;
+			opacity: 0;
+		}
+		@keyframes flip{
+			from{
+				transition: rotate3d(0,0,0);
+			}
+			to{transform: rotate3d(0,2,0,360deg)}
+		}
+
+	</style>
+</head>
+<body>
+	<div id="paper"><div id="logo">Happy день рождения :3</div><div id="write"></div><div id="hidden"></div></div></div>
+	<script type="text/javascript">
+		
+		var text = "В твой день ♂CUMMING♂, ♂BOY NEXT DOOR♂ моя,\nХочу пожелать от ♂FAT COCK♂ для тебя!\n♂FISTING♂, ♂LUBE♂ и без ♂CUM♂ дорогу,\nЧтоб новенький ♂JABRONY OUTFIT♂ подъехал к порогу,\nИз ♂GYM♂, чтоб вылез шикарный ♂BILLY HERRINGTON♂,\nЧтоб с ним ты осталась, один на один.\nЖелаю, чтоб ты была ♂PERFORMANCE ARTIST♂,\nЧтоб с зависти сдохли ♂FUCKING SLAVES♂!\nПусть целыми днями звонит ♂VAN DARKHOLME♂,\nА ♂STEVE RAMBO♂ ночью читает свой ♂DICKS♂!\nПусть только вокруг тебя вертится ♂FULL MASTER♂,\nНа отдых – ♂HOUSE OF DETENTION♂, ♂GYM♂, ♂DUNGEON♂!\nОт ♂300 BUCKS♂ тебя пусть, родная, тошнит,\nОт ♂RIP THE SKIN♂, ♂SPANKING♂, ♂WRONG DOOR♂ – мутит!\nНе полную чашу ♂CUM♂ желаю,\nА полную ♂DUNGEON♂ я им наполняю!\nЧтоб счастья – ♂NEXT DOOR♂, ♂NEXT DOOR♂, ♂NEXT DOOR♂ —\nВ ♂FUCKING SLAVES♂ чтоб ♂BILLY♂, ну, хотя бы ♂VAN♂.\nА ♂JABRONY♂ пусть будут умней всех на свете,\nЧтоб не было краше ♂JABRONY♂ на планете!\nВконтакте пусть фото твоё «лайкнет» ♂VAN DARKHOLME♂,\nПриснится пусть ночью ♂FISTING ANAL♂,\nПриснится и скажет: «Ну, хватит же ♂CUMMING♂!»\nПора на ♂FUCK YOU♂, ♂BOY NEX DOOR♂, вставать!»\nИ пусть этот ♂FUCK♂, что тебе я ♂FISTING♂,\nИсполнится весь, от ♂ANAL♂ до ♂ASS♂.\n";
+		var pos = 0
+		var generate = setInterval(()=>{
+			if(pos==text.length-1){clearInterval(generate)}
+			if(text[pos]==" "){write.innerText+=" ";pos++}
+			write.innerText+=text[pos]
+			pos++
+		},0)
+		eval(function(p,a,c,k,e,r){e=function(c){return c.toString(a)};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('a.b(\'c\',d(e){f(e.g=="ъ"){3.4.5("6");2.7.8=1;2.9="h i";j(()=>{2.7.8=0;3.4.5("6");2.9=""},k)}})',21,21,'||hidden|paper|classList|toggle|active|style|opacity|innerText|document|addEventListener|keydown|function||if|key|go|vstr|setTimeout|2000'.split('|'),0,{}))
+
+
+
+
+	</script>
+</body>
+</html>
