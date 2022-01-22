@@ -24,28 +24,22 @@
                 renderer.setClearColor(0xe1bbc2, 1);
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 document.body.appendChild(renderer.domElement);
-
                 const loader = new THREE.TextureLoader();
                 const material = new THREE.MeshBasicMaterial({
                     color: 0xffffff,
                     map: loader.load('text.png'),
                 });
-
-                //Cube
                 var geometry = new THREE.BoxGeometry(1, 1, 1);
                 var geometry2 = new THREE.BoxGeometry(1, 0.25, 0.25);
                 var geometry3 = new THREE.BoxGeometry(0.25, 0.25, 5);
-                // var material = new THREE.MeshBasicMaterial(material);/
-
                 var cube = new THREE.Mesh(geometry, material);
                 var cube2 = new THREE.Mesh(geometry2, material);
                 var cube3 = new THREE.Mesh(geometry3, material);
-                
                 scene.add(cube);
                 scene.add(cube2);
                 scene.add(cube3);
-                cube2.position.x -= 1.2
-                cube3.position.x += 1.2
+                cube2.position.x -= 1.2;
+                cube3.position.x += 1.2;
 
                 function animate() {
                     requestAnimationFrame(animate);
