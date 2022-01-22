@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ray</title>
+	<style type="text/css">
+		* { margin:0; padding:0; } 
+		html, body { width:100%; height:100%; }
+		canvas { display:block;width:100%;height:100%; }
+		@font-face {font-family: AmazDooMLeft;src: url(10167.ttf);}
+	</style>
+</head>
+<body>
+	<canvas id="canv" width="1200" height="720"></canvas>
+	<script type="text/javascript">
+		var maxFps = 0;
+		var minFps = 99999999;
+		var fps = [];
+		var canv = document.getElementById("canv");
+		var ctx  = canv.getContext("2d");
+		var winW=window.innerWidth*2;
+		var winH=window.innerHeight*2;
+		canv.width = winW;
+		canv.height= winH;
+		var tileSize = 72;
+		var flat = new Image();
+		var ruka = new Image();
+		var shoot= new Image();
+		var tx1= new Image();var tx2= new Image();var tx3= new Image();var tx4= new Image();var tx5= new Image();var tx6= new Image();var tx7= new Image();
+		tx1.src="img/1.jpg";
+		tx2.src="img/2.jpg";
+		tx3.src="img/3.jpg";
+		tx4.src="img/4.jpg";
+		tx5.src="img/5.jpg";
+		tx6.src="img/6.jpg";
+		tx7.src="img/7.jpg";
+
+		
+		function average(nums) {
+			return nums.reduce((a, b) => (a + b)) / nums.length;
+		}
+		var textures = [null,tx1,tx2,tx3,tx4,tx5,tx6,tx7]
+		shoot.src="img/shot.png";
+		flat.src ="img/flat.png";
+		ruka.src ="img/ruka.png";
+		String.prototype.replaceAt = function(index, replacement) {
+  			return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+		}
+		ctx.font = '100px AmazDooMLeft'
+		ctx.textAlign="center"
+		
+		ruka.onload = function(){
+			var game = setInterval(function(){
+				player.moveR = true;
+				const t0 = performance.now();
+				ctx.fillStyle="#88A2AD";
+				ctx.fillRect(0,0,winW,winH/2);
+				ctx.drawImage(flat,0,winH/2,winW,winH);
+				cast();
+				ctx.fillStyle="black"
+				updatePlayer()
+				const t1 = performance.now();
+				fpss = Math.floor(1 / ((t1 - t0) / 1000))
+				if(fpss>maxFps){maxFps=fpss}
+				if(fpss<minFps){minFps=fpss}
+				if(fps.length<30){ fps.push(fpss)}
+				if(fps.length==30){
+					ctx.fillText("AVERAGE FPS: " + Math.floor(average(fps)), winW / 2, 320)
+				}
+				ctx.fillText("FPS: "+fpss,winW/2,120)
+				ctx.fillText("MIN FPS: " + minFps, winW / 3, 120)
+				ctx.fillText("MAX FPS: " + maxFps, winW / 1.5, 120)
+			},1000/10);
+		};
+		function cast(){
+			for(var d=0;d<winW;d++){
+				var angle = player.a-player.fov/2+player.fov*d/winW;
+				for(var c=0;c<1700;c++){
+					var cx = (player.x+c*Math.cos(angle))/tileSize;
+					var cy = (player.y+c*Math.sin(angle))/tileSize;
+					var lookAt=map[Math.floor(cy)][Math.floor(cx)];
+					if(lookAt != "0"){
+						var column_height=(winH/(c*Math.cos(angle-player.a)))*winW/(winH/50)
+						var col0Y = winH/2-column_height/2
+						var hitx = cx-Math.floor(cx+.5);
+						var hity = cy-Math.floor(cy+.5);
+						var xTex = hitx*tSize;
+						if(Math.abs(hity)>Math.abs(hitx)){xTex=hity*tSize};
+						if(xTex<0){xTex+=tSize};
+						ctx.drawImage(textures[lookAt],xTex,1,1,tSize,d,col0Y,1,column_height);
+						ctx.fillStyle = "rgba(0,0,0,"+1*c/2000+")"
+						ctx.fillRect(d,col0Y,1,column_height)
+						break;
+					};
+				};
+			};
+		};
+		//1-темные кирпичи 2-сталь 3-бетонный забор 4-белые кирпичи 5-россия 6-татарстан 7-эчпочмак
+		var map =  ["33333333333333333333",
+					"57000000003000000076",
+					"50000000003000000006",
+					"50000000003000000006",
+					"50000000000000000006",
+					"50000000000000000006",
+					"50000000003000000006",
+					"50000000003000000006",
+					"57000000003000000076",
+					"33333333333333333333"];
+		var tSize = 255;
+		//var mutant = {
+			//x:75*4,y:75*4
+		//}
+		var player = {
+			x:75*2,
+			y:75*2,
+			a:0,
+			speed:30,
+			rotSpeed:0.03 ,
+			fov:Math.PI/3.,
+			moveR:false
+		};
+		function updatePlayer(){
+			if(player.moveR){
+				if(map[Math.floor((player.y+player.speed*Math.sin(player.a+1.57))/tileSize)][Math.floor((player.x+player.speed*Math.cos(player.a+1.57))/tileSize)] == '0'){
+					player.x = player.x+player.speed*Math.cos(player.a+1.57);
+					player.y = player.y+player.speed*Math.sin(player.a+1.57);
+					return "ON"
+				}else{
+					return "DONE"
+				}	
+			}
+		}
+
+	</script>
+</body>
+</html>
