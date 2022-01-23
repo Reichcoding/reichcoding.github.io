@@ -22,28 +22,113 @@
 			transition-duration: 0.2s;
 			box-shadow: 0px 0px 10px rgb(146, 0, 0);
 		}
-		body{
+		.grid{
+			display: grid;
+			place-items: center;
+			gap: 10px;
 			font-family: 'roboto';
 			text-shadow: 0px 0px 10px rgb(0, 183, 255);
 			letter-spacing: 15px;
 			text-transform: uppercase;
-			display: grid;
-			place-items: center;
-			gap: 10px;
+		}
+		.cybersport{
+			background-color: rgb(255, 255, 255);
+			border-radius: 5px 5px 5px 5px;
+			border:3px solid rgb(135, 235, 148);
+			box-shadow: 1px 1px 10px rgb(0, 255, 21);
+			font-size: 1.4em;
+			transition-duration: 0.2s;
+			min-width: 15%;
+			max-width: 20%;
+		}
+		.cybersport:hover{
+			border:3px solid rgb(0, 180, 39);
+			box-shadow: 1px 1px 10px rgb(0, 131, 11);
+			transition-duration: 0.2s;
+		}
+		.cybersport:focus{
+			border:3px solid rgb(81, 180, 0);
+			box-shadow: 1px 1px 10px rgb(84, 184, 2);
+			transition-duration: 0.2s;
+		}
+		/* Стили таблицы (IKSWEB) */
+		table.iksweb{
+			font-family:'arial';
+			margin: auto;
+			text-decoration: none;
+			border-collapse:collapse;
+			width:33%;
+			text-align:center;
+		}
+		table.iksweb th{
+			font-weight:normal;
+			font-size:14px; 
+			color:#ffffff;
+			background-color:rgb(0, 126, 175);
+		}
+		table.iksweb td{
+			font-size:13px;
+			color:#000000;
+		}
+		table.iksweb td,table.iksweb th{
+			white-space:pre-wrap;
+			padding:10px 5px;
+			line-height:13px;
+			vertical-align: middle;
+			border: 1px solid rgb(0, 128, 179);
 		}
 	</style>
 </head>
 <body>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-	<h1>Игра в бенчмарки</h1>
-	<button onclick="_240p()">426 х 240</button>
-	<button onclick="_360p()">640 х 360</button>
-	<button onclick="_480p()">854 х 480</button>
-	<button onclick="_720p()">1280 х 720</button>
-	<button onclick="_1080p()">1920 х 1080</button>
-	<button onclick="_1440p()">2560 x 1440</button>
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+	<div class="grid">	
+		<h1>Игра в бенчмарки</h1>
+		<button onclick="_240p()">426 х 240</button>
+		<button onclick="_360p()">640 х 360</button>
+		<button onclick="_480p()">854 х 480</button>
+		<button onclick="_720p()" class="cybersport" title = "Выбор профессионалов">1280 х 720</button>
+		<button onclick="_1080p()">1920 х 1080</button>
+		<button onclick="_1440p()">2560 x 1440</button>
+	</div><br>
+	<table class="iksweb">
+		<tbody>
+			<tr>
+				<th colspan="3">Рейтинг производительности процессоров</th>
+			</tr>
+			<tr>
+				<th>Процессор</th>
+				<th>AVR FPS</th>
+				<th>+%</th>
+			</tr>
+			<tr>
+				<td>AMD Ryzen 7 5800x@4.7GHz</td>
+				<td>99 fps</td>
+				<td>+34.4%</td>
+			</tr>
+			<tr>
+				<td>AMD Ryzen 7 3700x@4.0GHz</td>
+				<td>65 fps</td>
+				<td>+0%</td>
+			<!-- </tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr> -->
+		</tbody>
+	</table>
 	<script type="text/javascript">
 		
 		function _240p(){
