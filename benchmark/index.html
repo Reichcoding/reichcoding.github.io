@@ -92,43 +92,53 @@
 		<button onclick="_1080p()">1920 х 1080</button>
 		<button onclick="_1440p()">2560 x 1440</button>
 	</div><br>
-	<table class="iksweb">
+	
+	<table class="iksweb" id="tablee">
 		<tbody>
 			<tr>
-				<th colspan="3">Рейтинг производительности процессоров(1280x720)</th>
+				<th colspan="3">Рейтинг производительности процессоров</th>
 			</tr>
 			<tr>
 				<th>Процессор</th>
 				<th>AVR FPS</th>
-				<th>+%</th>
+				<th>Разница в %</th>
 			</tr>
-			<tr>
-				<td>AMD Ryzen 7 5800x@4.7GHz</td>
-				<td>99 fps</td>
-				<td>+34.4%</td>
-			</tr>
-			<tr>
-				<td>AMD Ryzen 7 3700x@4.0GHz</td>
-				<td>65 fps</td>
-				<td>+73.8%</td>
-			 </tr>
-			<tr>
-				<td>Intel Xeon E5-2620 v3@2.4GHz</td>
-				<td>17 fps</td>
-				<td>+0%</td>
-			</tr>
-			<!--<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr> -->
+			
 		</tbody>
 	</table>
+	<script>
+		let processors = [["AMD Ryzen 7 5800x@4.7GHz",99],["AMD Ryzen 7 3700x@4.0GHz",65],["Intel Xeon E5-2620 v3@2.4GHz",17]]
+		let table = document.querySelector('#tablee');
+		processors.sort(compare)
+		function compare(b,a){
+  			return +a[a.length-1] - b[b.length-1]
+		}
+		for (let i = 0; i < processors.length; i++) {
+			let tr = document.createElement('tr');
+			for (let j = 0; j < 3; j++) {
+				let td = document.createElement('td');
+				if(j==0){
+					td.innerText=processors[i][j]
+				}
+				else if(j==1){
+					td.innerText=processors[i][j]
+				}
+				else if(j==2){
+					if(processors[i+1]){
+						b = processors[i][1]
+						a = processors[i+1][1]
+						razn = (1/(a/b)-1)*100
+						td.innerText="+"+Math.round(razn*100)/100+"%"
+					}else{
+						td.innerText=0
+					}
+				}
+				tr.appendChild(td);
+			}
+			table.appendChild(tr);
+		}
+	</script>
+
 	<script type="text/javascript">
 		
 		function _240p(){
