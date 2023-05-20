@@ -27,18 +27,44 @@
             width: 100%;
             display: inline;
         }
+        .finder{
+            width: 100%;
+            height: 7vh;
+        }
     </style>
 </head>
 
 <body>
     <script src="cocks.js"></script>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="h1 text-center">BIG COCKS</div>
-            </div>
-        </div>
-        <div id="cocks" class="text-center">
+    <nav class="navbar fixed-bottom navbar-light bg-primary">
+        <input class="form-control finder" id="search" type="search" placeholder="Поиск">
+        <script>
+            var find_global = document.getElementById("search").value;
+            var blocks_global = document.getElementsByClassName("find_marker");
+            document.getElementById("search").onchange = function(){
+                update_search();
+            }
+            var timer = setInterval(update_search,250);
+            function update_search(){
+                let find = document.getElementById("search").value;
+                if(find!=find_global){
+                    find_global = find;
+                    for(let i=0;i<blocks_global.length;i++){
+                        if(blocks_global[i].innerText.toLowerCase().indexOf(find_global)!=false){
+                            blocks_global[i].parentNode.parentNode.parentNode.hidden = true;
+                        }else{
+                            blocks_global[i].parentNode.parentNode.parentNode.hidden = false;
+                        }
+    
+                    }
+                    
+                }
+                
+            }
+        </script>
+    </nav>
+    <div class="container table-responsive fixed-table-body ">
+        <div id="cocks" class="text-center ">
             
         </div>
         
@@ -62,7 +88,7 @@
                     <table class="table table-light">
                         <thead>
                        <tr class="table-secondary">
-                            <th colspan="3">${cocktail.name}</th>
+                            <th colspan="3" class="find_marker">${cocktail.name}</th>
                        </tr>
                     </thead>
                         <tbody>
