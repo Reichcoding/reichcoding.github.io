@@ -50,7 +50,7 @@
                 if(find!=find_global){
                     find_global = find;
                     for(let i=0;i<blocks_global.length;i++){
-                        if(blocks_global[i].innerText.toLowerCase().indexOf(find_global)!=false){
+                        if(blocks_global[i].innerText.toLowerCase().trim().indexOf(find_global)==-1){
                             blocks_global[i].parentNode.parentNode.parentNode.hidden = true;
                         }else{
                             blocks_global[i].parentNode.parentNode.parentNode.hidden = false;
