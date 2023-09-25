@@ -78,8 +78,8 @@
             x2:0,
             y2:0,
             update:function(date){
-                this.x2 = canvas_data.width/2 + Math.sin(toRadians((360/24)*date.getHours()))*((canvas_data.max_line/2)*0.7);
-                this.y2 = canvas_data.height/2 - Math.cos(toRadians((360/24)*date.getHours()))*((canvas_data.max_line/2)*0.7);
+                this.x2 = canvas_data.width/2 + Math.sin(toRadians((360/12)*date.getHours()))*((canvas_data.max_line/2)*0.7);
+                this.y2 = canvas_data.height/2 - Math.cos(toRadians((360/12)*date.getHours()))*((canvas_data.max_line/2)*0.7);
             }
         }
 
