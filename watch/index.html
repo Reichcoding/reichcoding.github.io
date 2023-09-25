@@ -1,27 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body{
-            padding: 0;
-            margin: 0;
-            overflow: hidden;
-        }
-    </style>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clockwork</title>
+    <style>body{padding: 0; margin: 0;overflow: hidden;}</style>
 </head>
-
-<body>
-    <canvas id="canva"></canvas>
+<body><canvas id="canva"></canvas>
 
     <script>
-
-
         var config = {
-
             ENABLE_NUMBERS: false,
             ENABLE_DOTS: true,
             
@@ -32,57 +19,48 @@
             SECONDS_COLOR: "red",
             MINUTES_COLOR: "lime",
             HOURS_COLOR: "white",
-
-
             DOTS_RATE : 60// 12,24,60
-
-
         }
-
-
-
-
         let canvas = document.getElementById("canva");
-        let ctx = canvas.getContext("2d");
-        
+        let ctx = canvas.getContext("2d");  
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
         let canvas_data = {
             width: canvas.width,
             height: canvas.height,
             max_line: canvas.width>canvas.height?canvas.height:canvas.width,
+            update:function(){
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                this.width= canvas.width;
+                this.height= canvas.height;
+                this.max_line= canvas.width>canvas.height?canvas.height:canvas.width;
+            }
         }
 
-        function toRadians (angle) {
-            return angle * (Math.PI / 180);
-        }
+        function toRadians (angle) {return angle * (Math.PI / 180);}
 
         let seconds = {
-            x2:0,
-            y2:0,
+            x2:0,y2:0,
             update:function(date){
                 this.x2 = canvas_data.width/2 + Math.sin(toRadians((360/60)*date.getSeconds()))*((canvas_data.max_line/2)*0.8);
                 this.y2 = canvas_data.height/2 - Math.cos(toRadians((360/60)*date.getSeconds()))*((canvas_data.max_line/2)*0.8);
             }
         }
         let mins = {
-            x2:0,
-            y2:0,
+            x2:0,y2:0,
             update:function(date){
                 this.x2 = canvas_data.width/2 + Math.sin(toRadians((360/60)*date.getMinutes()))*((canvas_data.max_line/2)*0.8);
                 this.y2 = canvas_data.height/2 - Math.cos(toRadians((360/60)*date.getMinutes()))*((canvas_data.max_line/2)*0.8);
             }
         }
         let hours = {
-            x2:0,
-            y2:0,
+            x2:0,y2:0,
             update:function(date){
                 this.x2 = canvas_data.width/2 + Math.sin(toRadians((360/12)*date.getHours()))*((canvas_data.max_line/2)*0.7);
                 this.y2 = canvas_data.height/2 - Math.cos(toRadians((360/12)*date.getHours()))*((canvas_data.max_line/2)*0.7);
             }
         }
-
 
         function drawLine(width,color,to){
             ctx.lineWidth = width
@@ -90,13 +68,12 @@
             ctx.beginPath();
             ctx.moveTo(canvas_data.width/2, canvas_data.height/2);
             ctx.lineTo(to.x2, to.y2);
-            ctx.stroke()
+            ctx.stroke();
         }
 
         function drawCifs(){
             ctx.font = '30px Arial Black';
             for(var i=1;i<=12;i++){
-
                 draw_x = canvas_data.width/2 + Math.sin(toRadians((360/12)*i))*((canvas_data.max_line/2)*0.96);
                 draw_y = canvas_data.height/2 - Math.cos(toRadians((360/12)*i))*((canvas_data.max_line/2)*0.96);
                 block_x = canvas_data.width/2 + Math.sin(toRadians((360/12)*i))*((canvas_data.max_line/2)*0.9);
@@ -104,8 +81,6 @@
                 ctx.fillStyle = "white";
                 let textWidth = ctx.measureText(`${i}`).width;
                 ctx.fillText(i,draw_x-(ctx.measureText(`${i}`).width/2),draw_y+8);
-                
-        
             }
         }
         function drawDots(){
@@ -114,48 +89,28 @@
                 block_y =  canvas_data.height/2 - Math.cos(toRadians((360/config.DOTS_RATE)*i))*((canvas_data.max_line/2)*0.88);
                 ctx.fillStyle = "white";
 
-                if(i%5==0){
-                    width = 10
-                }
-                else{
-                    width = 5
-                }
+                if(i%5==0) width = 10;
+                else width = 5;
 
                 ctx.beginPath();
                 ctx.arc(block_x, block_y, width, 0, 2 * Math.PI);
-                ctx.fill()
+                ctx.fill();
         
             }
         }
         setInterval(function(){
-            if(window.innerWidth!=canvas_data.width){
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                canvas_data = {
-                    width: canvas.width,
-                    height: canvas.height,
-                    max_line: canvas.width>canvas.height?canvas.height:canvas.width,
-                }
-            }
-            ctx.fillStyle = "black"
+            if(window.innerWidth!=canvas_data.width) canvas_data.update();
+            ctx.fillStyle = "black";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            
-            if(config.ENABLE_NUMBERS) drawCifs()
-            if(config.ENABLE_DOTS) drawDots()
-            
+            if(config.ENABLE_NUMBERS) drawCifs();
+            if(config.ENABLE_DOTS) drawDots();
             
             date = new Date();
 
-            if(config.ENABLE_SECONDS) seconds.update(date)
-            if(config.ENABLE_MINUTES) mins.update(date)
-            if(config.ENABLE_HOURS) hours.update(date)
-
-            if(config.ENABLE_SECONDS) drawLine(5,"red",seconds)
-            if(config.ENABLE_MINUTES) drawLine(10,"lime",mins)
-            if(config.ENABLE_HOURS) drawLine(15,"white",hours)
-
-
+            if(config.ENABLE_SECONDS) seconds.update(date); drawLine(5,"red",seconds);
+            if(config.ENABLE_MINUTES) mins.update(date); drawLine(10,"lime",mins);
+            if(config.ENABLE_HOURS) hours.update(date); drawLine(15,"white",hours);
 
             ctx.fillStyle = "black"
             ctx.beginPath();
@@ -163,7 +118,7 @@
             ctx.fill()
 
             
-        },1000/30)
+        },1000/10)
     </script>
 </body>
 
