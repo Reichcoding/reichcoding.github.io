@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiNi</title>
+    <style>
+        body{
+            width: 400px;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #game {
+            margin: 0;
+            border-radius: 25px;
+            background-color: #258AEB;
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+            
+        }
+
+        section.slots {
+            display: flex;
+            justify-content: space-around;
+            border-radius: 15px;
+            background-color: #FAFAFA;
+            padding: 20px;
+        }
+
+        #button-slot {
+            color: black;
+            font-size: 26px;
+            text-align: center;
+            margin-top: 10px;
+            padding: 20px;
+            background-color: #FFFFFF;
+            font-weight: bold;
+            border:none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .icons {
+            font-size: 50px;
+            text-align: center;
+            margin: 10px;
+        }
+
+        #button-slot:hover {
+            transform: scale(1.1);
+            transition: .1s;
+        }
+        div#result {
+            font-weight: 800;
+            overflow: hidden;
+            font-size: 2em;
+            color:white;
+            left:50px;
+            position: absolute;
+            animation: result_animation .5s;
+            margin-top: 0;
+
+        }
+        @keyframes result_animation{
+            from{
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        .spinning{
+            filter: blur(5px);
+            animation: spins .3s linear infinite;
+        }
+        @keyframes spins{
+            to{
+                transform: rotate(360deg);
+            }
+        }
+        .bet_container{
+            margin-top: 10px;
+        }
+        #bet{
+            background-color: rgba(0,0,0,0);
+            border:none;
+            text-align: center;
+            font-size: 3em;
+            width: 90%;
+            color:white;
+            box-shadow: 0 0 5px 0 #64A6F0;
+            border-radius: 25px;
+        }
+        td{
+            width: 25%;
+        }
+        .winned{
+            text-shadow: 0 0 4px #00ff00;
+        }
+        .loses{
+            text-shadow: 0 0 4px #ff0000;
+        }
+        .mrmr{
+            color:white;
+            transform: translateY(20px);
+        }
+        .balance{
+            width: 50%;
+        }
+        .blbot{
+            color:white;
+            font-size: 1.5em;
+        }
+        .betnica{
+            width: 50%;
+        }
+        table{
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+        <div id="game">
+            <section class="slots" id = "slots">
+                <div id="slot1" class="icons"></div>
+                <div id="slot2" class="icons"></div>
+                <div id="slot3" class="icons"></div>
+            </section>
+            <div id="result" hidden>+100</div>
+            <table>
+                <tr class="mrmr">
+                    <!-- <td></td> -->
+                    <td></td>
+                    <td class="betnica">СТАВКА</td>
+                </tr>
+                <tr>
+                    <!-- <td> -->
+                        
+                    <!-- </td> -->
+                    <td><button id="button-slot">КРУТИТЬ</button></td>
+                    <td class="betnica">
+                        <div class="bet_container"><input type="number" id="bet" placeholder="Ставка" value="10"></input></div>
+                    </td>
+                </tr>
+                </table>
+        </div>
+    <script src="./script.min.js"></script>
+    <script src="../balance.min.js"></script>
+    
+</body>
+
+</html>

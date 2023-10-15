@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiNi</title>
+    <style>
+        body{margin: 0; font-family: Arial, Helvetica, sans-serif;}
+        #game {
+            margin: 0;
+            border-radius: 25px;
+            background-color: #258AEB;
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+            
+        }
+        #button-slot {
+            color: black;
+            font-size: 26px;
+            text-align: center;
+            padding: 20px;
+            background-color: #FFFFFF;
+            font-weight: bold;
+            border:3px solid #6AADF7;
+            border-radius: 10px;
+            cursor: pointer;
+            height: 150px;
+        }
+        #button-slot:hover {
+            transform: scale(1.1);
+            transition: .1s;
+        }
+        #result {
+            font-weight: 800;
+            overflow: hidden;
+            font-size: 2em;
+            color:white;
+            top:175px;
+            left:40px;
+    
+            position: absolute;
+            animation: result_animation .5s;
+            margin-top: 0;
+        }
+        @keyframes result_animation{
+            from{
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        .spinning{
+            filter: blur(5px);
+            animation: spins .3s linear infinite;
+        }
+        @keyframes spins{
+            to{
+                transform: rotate(360deg);
+            }
+        }
+        .bet{
+            background-color: rgba(0,0,0,0);
+            border:none;
+            text-align: center;
+            font-size: 1em;
+            width: 90%;
+            color:white;
+            box-shadow: 0 0 5px 0 #64A6F0;
+            border-radius: 25px;
+        }
+        .winned{text-shadow: 0 0 4px #00ff00;}
+        .loses{text-shadow: 0 0 4px #ff0000;}
+        .SLOT{
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            border-radius: 10px;
+        }
+        table{
+            width: 100%;
+        }
+        .top{
+            width: 50%;
+        }
+        .cum{
+            font-size: 100px;
+            font-weight: bold;
+            padding: 5px;
+            text-shadow: 0 0 10px white;
+            border-radius:100px;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+        .glow1{background-color: orange;}
+        .glow3{background-color: #76C837;}
+        .glow5{background-color: #6AADF7;}
+        .glow10{background-color: magenta;}
+        .glow20{background-color: red;}
+        .bets{
+            margin-top: 33px;
+            text-shadow: 0 0 5px white;
+            font-size: 2em;
+            
+        }
+        .bets td{
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            color:white
+        }
+        .bettdleft{
+            width: 25%;
+        }
+    </style>
+</head>
+
+<body>
+        <div id="game">
+            <table>
+                <tr>
+                    <td class="SLOT" class="top"><div id="spin1" class="cum glow20">20</div></td>
+                    <td class="top"><button id="button-slot">КРУТИТЬ</button></td>
+                </tr>
+            </table>
+            <div id="result" hidden>+100</div>
+            <table class="bets">
+                <tr><td class="bettdleft">1 </td><td><input type="number" class="bet" id="bet1" value="0"></td></tr>
+                <tr><td class="bettdleft">3 </td><td><input type="number" class="bet" id="bet3" value="0"></td></tr>
+                <tr><td class="bettdleft">5 </td><td><input type="number" class="bet" id="bet5" value="0"></td></tr>
+                <tr><td class="bettdleft">10 </td><td><input type="number" class="bet" id="bet10" value="0"></td></tr>
+                <tr><td class="bettdleft">20 </td><td><input type="number" class="bet" id="bet20" value="0"></td></tr>
+            </table>
+        </div>
+    
+    <script src="../balance.min.js"></script>
+    <script src="./script.min.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+        }
+        .container{
+            margin: 60px auto;
+            width: 980px;
+        }
+        iframe{
+            width: 100%;
+            height: 50vh;
+        }
+        .mi{
+            height: 35vh;
+        }
+        .balik{
+            text-align: center;
+            border-radius: 25px;
+            font-size: 2.5em;
+            padding: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            color:white;
+        }
+        #balik.bad{
+            text-shadow: 0 0 5px #ff0000;
+        }
+        #balik.neutral{
+            text-shadow: 0 0 5px #83A7CE;
+        }
+        #balik.good{
+            text-shadow: 0 0 5px #00ff00;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #258AEB;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+        .minigame{
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        iframe{
+            margin-top: 10px;
+        }
+    </style>
+    <!-- CSS only -->
+    
+</head>
+<body>
+    <div class="navbar">
+        <div class="balik">Баланс: <span id="balik" class="bad"></span>р.</div>
+    </div>
+    <div class="container">
+        <div class="minigame">
+        <iframe src="./slot/index.html" class="mi" frameborder="0"></iframe>
+        <iframe src="./slot/index.html" class="mi" frameborder="0"></iframe>
+        <iframe src="./roulette/index.html" frameborder="0"></iframe>
+        <iframe src="./roulette/index.html" frameborder="0"></iframe>
+        </div>
+    </div>
+    
+    
+    <script src="./balance.min.js"></script>
+    <script>var _BALANCE=getBalance();setInterval((function(){_BALANCE=getBalance(),balik.innerText=_BALANCE,_BALANCE>50?balik.classList.add("neutral"):balik.classList.remove("neutral"),_BALANCE>1e3?balik.classList.add("good"):balik.classList.remove("good")}),500);</script>
+    <script>function resizeIFrameToFitContent(e){e.width=e.contentWindow.document.getElementById("game").scrollWidth,e.height=e.contentWindow.document.getElementById("game").scrollHeight}window.onload=function(){for(var e=document.querySelectorAll("iframe"),t=0;t<e.length;t++)resizeIFrameToFitContent(e[t])};</script>
+</body>
+</html>
