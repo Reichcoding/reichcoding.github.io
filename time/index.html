@@ -45,9 +45,9 @@
         let formattedTime = new Date().toLocaleTimeString('en-US')
         time = formattedTime.toString().split(" ")[0].split(":")
         if(time[1]>=30){
-            document.getElementById('Time').innerText =`<div>${_half[time[0]]}</div>` 
+            document.getElementById('Time').innerText =`${_half[time[0]]}` 
         }else{
-            document.getElementById('Time').innerText =`<div>${_time[time[0]]}</div>`
+            document.getElementById('Time').innerText =`${_time[time[0]]}`
         }
     }
     writeTime()
