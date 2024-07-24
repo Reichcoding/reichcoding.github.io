@@ -11,6 +11,7 @@
         font-size: 15em;
     }
 </style>
+<div id="Time"></div>
 <script>
     var _time = {
         "12":'🕛',
@@ -45,12 +46,13 @@
         let formattedTime = new Date().toLocaleTimeString('en-US')
         time = formattedTime.toString().split(" ")[0].split(":")
         if(time[1]>=30){
-            document.write(`<div>${_half[time[0]]}</div>`) 
+            document.getElementById('Time').innerText(`<div>${_half[time[0]]}</div>`) 
         }else{
-            document.write(`<div>${_time[time[0]]}</div>`)
+            document.getElementById('Time').innerText(`<div>${_time[time[0]]}</div>`)
         }
     }
     writeTime()
     timer = setInterval(writeTime,1000*60)
     
 </script>
+
