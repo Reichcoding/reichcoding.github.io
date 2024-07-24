@@ -41,7 +41,8 @@
         "11":'🕦',
     }
     function writeTime(){
-        let formattedTime = new Date().toLocaleTimeString('en-US');
+        document.body.innerHTML = ""
+        let formattedTime = new Date().toLocaleTimeString('en-US')
         time = formattedTime.toString().split(" ")[0].split(":")
         if(time[1]>=30){
             document.write(`<div>${_half[time[0]]}</div>`) 
