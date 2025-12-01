@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #00ff00;
+            text-align: center;
+        }
+        .text_upper{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 35px;
+            color: rgb(251, 140, 43);
+            font-weight: bold;
+            font-style: normal;
+            text-transform: none;
+            text-shadow: 0px 0px 1px rgb(0, 0, 0), 0px 0px 2px rgb(0, 0, 0), 0px 0px 3px rgb(0, 0, 0), 0px 0px 4px #000, 0px 0px 5px rgb(0, 0, 0);
+            letter-spacing: 15px;
+            word-spacing: 0px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .text_under{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size:35px;
+            color:white;
+            font-weight: normal;
+            font-style: normal;
+            text-transform: none;
+            text-shadow: 0px 0px 1px rgb(0, 0, 0), 0px 0px 2px rgb(0, 0, 0), 0px 0px 3px rgb(0, 0, 0), 0px 0px 4px #000, 0px 0px 5px rgb(0, 0, 0);
+            letter-spacing: 0px;
+            word-spacing: 0px;
+        }
+        .animated{
+            animation-iteration-count: infinite;
+            animation-duration: 1s;
+            animation-name:tada;
+            display:inline-block;
+            transform:translateZ(0);
+        }
+
+
+        @keyframes tada {
+            from {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+
+            10%, 20% {
+                -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+                transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+            }
+
+            30%, 50%, 70%, 90% {
+                -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+                transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+            }
+
+            40%, 60%, 80% {
+                -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+                transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+            }
+
+            to {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        .hide{
+            animation-name: hide;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+        .show{
+            animation-name:show;
+            animation-duration: 1s;
+            
+        }
+
+        @keyframes hide {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+        @keyframes show {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="donation" class="donation hide">
+        <div id="text_up" class="text_upper" >
+           
+        </div>
+        <div id="text_bottom" class="text_under">
+            
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    var animation_duration = 9000;
+    var donation_messages = [
+        "kill yourself",
+        "kill yourself now",
+        'i want you dead',
+        'i want you kill yourself',
+        'i want you commit suicide',
+        'commit suicide',
+        'plz die',
+        'die',
+        'suffer',
+        'i want you suffer',
+        'i want u dead',
+        'bless you die',
+        'you die',
+        'you die in suffer',
+        'i think you die soon',
+        'idiot',
+        'dumbass die',
+        'dumbass',
+        'DEAD',
+        'nigger die',
+        'nigga',
+        'DIE DIE',
+        'die die',
+        'dont live bro',
+        'please die',
+        'die in suffer',
+        'the devil is waiting',
+        'behind you',
+        'hes coming for you',
+        'you ready?',
+        'you want be dead?',
+        'you wanna die?',
+        'i want kill you',
+        'he want kill you',
+    ]
+    function generate_upper_text(text="Default",money=100){
+        generate_text = text+"  - \ "+money+" RUB!"
+        show_up_text = ""
+        text_up.innerHTML = "";
+        generate_text.split("").forEach(element => {
+            
+            elem = document.createElement("div");
+            elem.textContent = element;
+            text_up.appendChild(elem);
+            elem.classList.add("animated")
+
+        });
+    }
+    function play_donation(){
+        
+        generate_upper_text(makeid(Math.ceil(3+(Math.random()*7))),Math.ceil(5*(Math.random()*10)))
+        text_bottom.innerText = donation_messages[Math.ceil(Math.random()*donation_messages.length-1)]
+        donation.classList.remove("hide");
+        donation.classList.add("show")
+
+        setTimeout(()=>{
+            donation.classList.remove("show");
+            donation.classList.add("hide");
+        },animation_duration)
+    }
+    function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
+    infinite_donations = setInterval(()=>{
+        play_donation()
+    },Math.ceil(10000+(30000*Math.random())))
+</script>

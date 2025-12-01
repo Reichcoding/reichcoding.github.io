@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #00ff00;
+            text-align: center;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .chat{
+            font-size: 25px;
+        }
+        .nickname{
+            padding-left: 25px;
+            font-weight: bold;
+            text-align: right;
+        }
+        .text{
+            padding-left: 5px;
+            color:white;
+            text-align: left;
+        }
+        
+    </style>
+</head>
+<body>
+    <table id="chat" class="chat">
+    </table>
+</body>
+</html>
+
+<script>
+    max_messaages = 25
+
+    var donation_messages = [
+        "kill yourself",
+        "kill yourself now",
+        'i want you dead',
+        'i want you kill yourself',
+        'i want you commit suicide',
+        'commit suicide',
+        'plz die',
+        'die',
+        'suffer',
+        'i want you suffer',
+        'i want u dead',
+        'bless you die',
+        'you die',
+        'you die in suffer',
+        'i think you die soon',
+        'idiot',
+        'dumbass die',
+        'dumbass',
+        'DEAD',
+        'DIE DIE',
+        'die die',
+        'niggers',
+        'nigga',
+        'dont live bro',
+        'please die',
+        'die in suffer',
+        'the devil is waiting',
+        'behind you',
+        'hes coming for you',
+        'you ready?',
+        'you want be dead?',
+        'you wanna die?',
+        'i want kill you',
+        'he want kill you',
+    ]
+
+    function new_chat_message(nk=makeid(10),msg=donation_messages[Math.ceil(Math.random()*donation_messages.length-1)]){
+        chatmsg = document.createElement("tr");
+        chatmsg.classList.add("chat_message");
+        nick=document.createElement("td");
+        nick.classList.add("nickname")
+        nick.innerText = nk;
+        nick.style.color = `#`+randomColor()
+        message=document.createElement("td");
+        message.classList.add("text")
+        message.innerText=msg;
+        chatmsg.appendChild(nick);
+        chatmsg.appendChild(message)
+        chat.appendChild(chatmsg)
+    };
+
+    function check_count(){
+        if(chat.querySelectorAll(".chat_message").length>=max_messaages){
+            chat.querySelectorAll(".chat_message")[0].remove()
+        }
+    }
+
+    setInterval(()=>{
+        check_count();
+        new_chat_message();
+    },Math.ceil(500+(500*Math.random())))
+
+
+    for(let i = 0 ; i < max_messaages ; i ++){
+        new_chat_message();
+    }
+
+
+    function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+    function randomColor(){
+        var result           = '';
+        var characters       = '0123456789ABCDEF';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < 6; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+</script>
