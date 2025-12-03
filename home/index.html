@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/browser.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tab</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root, [data-theme="light"] {
+            --primary-color: #4285f4;
+            --secondary-color: #ff3c00;
+            --light-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #eaeaea;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        [data-theme="dark"] {
+            --primary-color: #88c0d0;
+            --secondary-color: #bf616a;
+            --light-bg: #2e3440;
+            --card-bg: #3b4252;
+            --text-color: #eceff4;
+            --border-color: #4c566a;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            --body-bg: linear-gradient(135deg, #2e3440 0%, #4c566a 100%);
+        }
+        
+        body {
+            background: var(--body-bg);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .main-container {
+            max-width: 800px;
+            width: 100%;
+            margin-top: -100px;
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .theme-toggle-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .search-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .search-input-group {
+            margin-bottom: 20px;
+        }
+        
+        .search-input-group .input-group {
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .search-input {
+            border: 2px solid var(--border-color);
+            border-right: none;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: none;
+            z-index: 3;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+        
+        .search-input::placeholder {
+            color: var(--text-color);
+            opacity: 0.6;
+        }
+        
+        .search-engine-buttons {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .search-btn {
+            border: 2px solid var(--border-color);
+            border-left: none;
+            padding: 0;
+            margin: 0;
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .search-btn,
+        .search-btn:focus,
+        .search-btn:active {
+            outline: none;
+            box-shadow: none !important;
+        }
+        
+        .google-btn {
+            background-color: #4285f4;
+            border-color: #4285f4;
+        }
+        
+        .google-btn:hover {
+            background-color: #3367d6;
+            border-color: #3367d6;
+        }
+        
+        .yandex-btn {
+            background-color: #ff3c00;
+            border-color: #ff3c00;
+        }
+        
+        .yandex-btn:hover {
+            background-color: #e03500;
+            border-color: #e03500;
+        }
+        
+        .search-btn.engine-selected {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+        
+        .search-btn .btn-icon {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .action-btn {
+            padding: 15px;
+            border-radius: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            background: var(--card-bg);
+        }
+        
+        .action-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Для мобильных устройств */
+        @media (max-width: 768px) {
+            .main-container {
+                margin-top: -50px;
+                padding: 0 15px;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .action-buttons {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .search-input-group .input-group {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            
+            .search-input-group .input-group .search-input {
+                border-radius: 15px 15px 0 0;
+                border: 2px solid var(--border-color);
+                border-bottom: none;
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .search-engine-buttons {
+                width: 100%;
+            }
+            
+            .search-btn {
+                flex: 1;
+                width: auto;
+                padding: 12px 0;
+                border: 2px solid var(--border-color);
+                border-top: none;
+                min-height: 50px;
+            }
+            
+            .search-btn:first-child {
+                border-right: 1px solid rgba(255,255,255,0.3);
+                border-radius: 0 0 0 15px;
+            }
+            
+            .search-btn:last-child {
+                border-radius: 0 0 15px 0;
+            }
+            
+            .search-btn .btn-icon {
+                font-size: 1.3rem;
+            }
+            
+            .action-btn {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+            
+            .action-icon {
+                font-size: 1.5rem;
+                margin-bottom: 8px;
+            }
+            
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+            }
+            
+            .theme-toggle-btn {
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding: 15px;
+            }
+            
+            .main-container {
+                margin-top: -30px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .search-card {
+                padding: 20px 15px;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .action-btn {
+                padding: 15px 10px;
+            }
+            
+            .action-icon {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 375px) {
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .search-input {
+                padding: 10px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .search-btn {
+                min-height: 45px;
+            }
+            
+            .action-btn {
+                padding: 12px 8px;
+                font-size: 0.85rem;
+            }
+            
+            .action-icon {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle">
+        <a href="#" class="theme-toggle-btn" title="Toggle theme" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </a>
+    </div>
+    
+    <div class="main-container">
+        <!-- Logo Section -->
+        <div class="logo-container">
+            <div class="logo">
+                <i class="fas fa-search"></i> Firefox
+            </div>
+        </div>
+        
+        <!-- Search Form -->
+        <div class="search-card">
+            <!-- Search Input -->
+            <div class="search-input-group">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        class="form-control search-input" 
+                        id="searchQuery"
+                        placeholder="Searching query" 
+                        autocomplete="off"
+                        autofocus
+                    >
+                    
+                    <div class="search-engine-buttons">
+                        <button type="button" class="btn google-btn search-btn engine-selected" id="googleSearch">
+                            <i class="fab fa-google btn-icon"></i>
+                        </button>
+                        
+                        <button type="button" class="btn yandex-btn search-btn" id="yandexSearch">
+                            <i class="fab fa-yandex btn-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="https://vk.com/" class="action-btn" target="_blank">
+                    <i class="fab fa-vk action-icon text-primary"></i>
+                    <span>Вконтакте</span>
+                </a>
+                
+                <a href="https://youtube.com/" class="action-btn" target="_blank">
+                    <i class="fab fa-youtube action-icon text-danger"></i>
+                    <span>Youtube</span>
+                </a>
+
+                <a href="https://translate.google.com/?hl=ru&sl=ru&tl=en&op=translate" class="action-btn" target="_blank">
+                    <i class="fas fa-language action-icon text-primary"></i>
+                    <span>Translator</span>
+                </a>
+                
+                <a href="https://yandex.ru/maps/" class="action-btn" target="_blank">
+                    <i class="fas fa-map-marker-alt action-icon text-danger"></i>
+                    <span>Maps</span>
+                </a>
+                
+                <a href="https://store.steampowered.com/?l=russian" class="action-btn" target="_blank">
+                    <i class="fab fa-steam action-icon"></i>
+                    <span>Steam</span>
+                </a>
+                
+                <a href="https://plati.market/" class="action-btn" target="_blank">
+                    <i class="fas fa-shopping-cart action-icon text-warning"></i>
+                    <span>Plati.market</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS Bundle with Popper CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Theme management
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved theme or prefer-color-scheme
+        function getPreferredTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) return savedTheme;
+            
+            // Check system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return 'dark';
+            }
+            return 'light';
+        }
+        
+        // Apply theme
+        function applyTheme(theme) {
+            body.setAttribute('data-theme', theme);
+            const icon = themeToggle.querySelector('i');
+            icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+            localStorage.setItem('theme', theme);
+        }
+        
+        // Initialize theme
+        applyTheme(getPreferredTheme());
+        
+        // Toggle theme
+        themeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            applyTheme(newTheme);
+        });
+        
+        // Search functionality
+        let selectedEngine = 'google';
+        const googleBtn = document.getElementById('googleSearch');
+        const yandexBtn = document.getElementById('yandexSearch');
+        const searchInput = document.getElementById('searchQuery');
+        
+        // Search engine selection
+        function selectEngine(engine) {
+            selectedEngine = engine;
+            document.querySelectorAll('.search-btn').forEach(btn => {
+                btn.classList.remove('engine-selected');
+            });
+            
+            if (engine === 'google') {
+                googleBtn.classList.add('engine-selected');
+            } else {
+                yandexBtn.classList.add('engine-selected');
+            }
+        }
+        
+        googleBtn.addEventListener('click', () => selectEngine('google'));
+        yandexBtn.addEventListener('click', () => selectEngine('yandex'));
+        
+        // Perform search
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (!query) return;
+            
+            const searchUrls = {
+                'google': 'https://www.google.com/search?q=',
+                'yandex': 'https://yandex.com/search/?text='
+            };
+            
+            const url = searchUrls[selectedEngine] + encodeURIComponent(query);
+            window.open(url, '_blank');
+            searchInput.value = '';
+        }
+        
+        // Search on Enter key
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // Search on button click
+        googleBtn.addEventListener('click', function(e) {
+            if (searchInput.value.trim()) {
+                performSearch();
+            }
+        });
+        
+        yandexBtn.addEventListener('click', function(e) {
+            if (searchInput.value.trim()) {
+                performSearch();
+            }
+        });
+        
+        // Mobile optimization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adjust for mobile viewport
+            if (window.innerWidth <= 768) {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+            
+            // Prevent zoom on input focus for mobile
+            searchInput.addEventListener('focus', function() {
+                if (window.innerWidth <= 768) {
+                    this.style.fontSize = '16px';
+                }
+            });
+        });
+        
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                applyTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    </script>
+</body>
+</html>
